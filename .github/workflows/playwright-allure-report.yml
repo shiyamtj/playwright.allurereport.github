@@ -23,7 +23,6 @@ jobs:
 
       - name: Get Allure history
         uses: actions/checkout@v2
-        if: always()
         continue-on-error: true
         with:
           ref: gh-pages
@@ -32,18 +31,15 @@ jobs:
       - name: Generate Allure Report
         uses: simple-elf/allure-report-action@master
         id: allure-report
-        if: always()
         with:
           allure_results: allure-results
           gh_pages: gh-pages
           allure_report: allure-report
           allure_history: allure-history
-          keep_reports: 20
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: peaceiris/actions-gh-pages@v2
-        if: always()
         env:
           PERSONAL_TOKEN: ${{ secrets.TOKEN }}
           PUBLISH_BRANCH: gh-pages
